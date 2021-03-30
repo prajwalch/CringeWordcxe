@@ -4,6 +4,8 @@
 #include "cxe_readLine.h"
 #include "cxe_logger.h"
 
+#define NUM_OF_MENUS 3
+
 void startGame(void);
 void aboutGame(void);
 void exitGame(void);
@@ -17,8 +19,6 @@ void exitGame(void)
 {
   exit(0);
 }
-
-#define NUM_OF_MENUS 3
 
 struct Menu menus[NUM_OF_MENUS] = {
   { 1, "Start", startGame},
