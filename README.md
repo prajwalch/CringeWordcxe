@@ -1,7 +1,7 @@
 # Cringe Word
 **Simple word guessing game where user will be given a random word with shuffle letters and user have to guess what word it is.**
 
-## v0.0.1
+## 0.0.1
 ### Added Features
 ----
 - Main Menu
