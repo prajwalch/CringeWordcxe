@@ -36,23 +36,5 @@ void startEngine(void) {
     char userRawInput[2] = { 0 };
     long userChoosenMenu = readLine("Your choice", userRawInput, sizeof(userRawInput));
     handleMenuTrigger(menus, NUM_OF_MENUS, userChoosenMenu);
-    
-    /*switch(userChoosenMenu) {
-      // start
-      case 1:
-        startGame();
-        break;
-      // about
-      case 2:
-        aboutGame();
-        break;
-      case 3:
-        shouldShutdown = true;
-        break;
-      // wrong input
-      default:
-        Log("\nWrong Input\n");
-        break;
-    }*/
   } while(!shouldShutdown);
 }
