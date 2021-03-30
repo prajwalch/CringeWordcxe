@@ -20,7 +20,7 @@ void exitGame(void)
   exit(0);
 }
 
-struct Menu menus[NUM_OF_MENUS] = {
+static struct Menu menus[NUM_OF_MENUS] = {
   { 1, "Start", startGame},
   { 2, "About", aboutGame},
   { 3, "Exit", exitGame},
