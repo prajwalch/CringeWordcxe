@@ -1,14 +1,66 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
 #include "cxe_logger.h"
+#include "cxe_readLineUtils.h"
 
-void flushInputBuffer() 
+long parseInputAsInt(char *input);
+
+
+long readLine(char *prompt, char *inputBuffer , size_t size) 
 {
-  int ch = 0;
-  while(((ch = getchar()) != '\n') && (ch != EOF));
+  char *p_Input = NULL;
+  
+  while(p_Input == NULL) 
+  {
+    // display prompt
+    displayPrompt(prompt);
+    
+    // take input
+    p_Input = fgets(inputBuffer, size + 1, stdin);
+    // check for null
+    if(isNullInput(&p_Input)) 
+    {
+      printf("Invalid input found\n");
+      continue;
+    }
+    
+    // check for overflow
+    if(isBufferOverflow(inputBuffer)) 
+    {
+      flushInputBuffer();
+      setInputToNull(&p_Input);
+      printf("Its not allowed to enter more then %i input\n", (strlen(inputBuffer) - 1));
+      continue;
+    }
+    
+    // check for empty/space input
+    if(isspace(inputBuffer[0])) 
+    {
+      setInputToNull(&p_Input);
+      printf("Sorry, can't process empty or space input\n");
+      continue;
+    }
+    
+    // check for alphabet
+    if(isalpha(inputBuffer[0]))
+    {
+      setInputToNull(&p_Input);
+      printf("Alphabets are also not allowed\n");
+      continue;
+    }
+    
+    // check for digit 
+    if(!isdigit(inputBuffer[0]))
+    {
+      setInputToNull(&p_Input);
+      printf("Sorry, non of the special characters are allowed\n");
+      continue;
+    }
+    
+    return parseInputAsInt(p_Input);
+  }
 }
 
 void displayPrompt(char *prompt) 
@@ -17,12 +69,14 @@ void displayPrompt(char *prompt)
   {
     printf("%s\n", prompt);
     printf("> ");
+  } else {
+    printf("> ");
   }
 }
 
-bool isNullInput(char **input) 
+bool isNullInput(char **p_Input) 
 {
-  if(*input == NULL)
+  if(*p_Input == NULL)
     return true;
   return false;
 }
@@ -35,9 +89,15 @@ bool isBufferOverflow(char *inputBuffer)
   return false;
 }
 
-void setInputToNull(char **input)
+void flushInputBuffer() 
 {
-  *input = NULL;
+  int ch = 0;
+  while(((ch = getchar()) != '\n') && (ch != EOF));
+}
+
+void setInputToNull(char **p_Input)
+{
+  *p_Input = NULL;
 }
 
 long parseInputAsInt(char *input) 
@@ -51,59 +111,4 @@ long parseInputAsInt(char *input)
     printf("Error converting inputBuffer\n");
   }
   return convertedBuffer;
-}
-
-long readLine(char *prompt, char *inputBuffer , size_t size) 
-{
-  char *input = NULL;
-  
-  while(input == NULL) 
-  {
-    // display prompt
-    displayPrompt(prompt);
-    
-    // take input
-    input = fgets(inputBuffer, size + 1, stdin);
-    // check for null
-    if(isNullInput(&input)) 
-    {
-      printf("Invalid input found\n");
-      continue;
-    }
-    
-    // check for overflow
-    if(isBufferOverflow(inputBuffer)) 
-    {
-      flushInputBuffer();
-      setInputToNull(&input);
-      printf("Its not allowed to enter more then %i input\n", (strlen(inputBuffer) - 1));
-      continue;
-    }
-    
-    // check for empty/space input
-    if(isspace(inputBuffer[0])) 
-    {
-      setInputToNull(&input);
-      printf("Sorry, can't process empty or space input\n");
-      continue;
-    }
-    
-    // check for alphabet
-    if(isalpha(inputBuffer[0]))
-    {
-      setInputToNull(&input);
-      printf("Alphabets are also not allowed\n");
-      continue;
-    }
-    
-    // check for digit 
-    if(!isdigit(inputBuffer[0]))
-    {
-      setInputToNull(&input);
-      printf("Sorry, non of the special characters are allowed\n");
-      continue;
-    }
-    
-    return parseInputAsInt(input);
-  }
 }

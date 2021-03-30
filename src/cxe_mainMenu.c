@@ -1,16 +1,30 @@
 #include "cxe_logger.h"
-void menu();
+#include "cxe_menuStruct.h"
 
-void displayMainMenu() {
-  menu();
+void displayMainMenu(struct Menu *menus, int totalMenus)
+{
+  Log("--------------------\n");
+  Log("     MAIN MENU      \n");
+  Log("--------------------\n");
+  
+  int index = 0;
+  for (index; index < totalMenus; index++)
+  {
+    printf("%i. %s\n", menus[index].optionNunber, menus[index].name);
+  }
+  Log("--------------------\n");
 }
 
-void menu() {
-  Log("--------------------\n");
-  Log("|    MAIN MENU     |\n");
-  Log("--------------------\n");
-  Log("| 1. Start         |\n");
-  Log("| 2. About         |\n");
-  Log("| 3. Exit          |\n");
-  Log("|__________________|\n");
+void handleMenuTrigger(struct Menu *menus, int totalMenus, long userChoosenMenu)
+{
+  int index = 0;
+  for (index; index < totalMenus; index++)
+  {
+    if(userChoosenMenu == menus[index].optionNunber)
+    {
+      menus[index].func();
+      return;
+    }
+  }
+  printf("\nWrong input\n\n");
 }
