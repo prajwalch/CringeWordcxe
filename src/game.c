@@ -84,7 +84,7 @@ void startGame(void) {
   int totalStoredWords = sizeof(wordList) / sizeof(wordList[0]);
   shuffleWordList(wordList, totalStoredWords);
   presentWords(wordList, totalStoredWords - 1);
-};
+}
 
 void displayInstructions(void)
 {
