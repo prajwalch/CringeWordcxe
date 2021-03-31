@@ -7,9 +7,8 @@
 #include "cxe_readLineUtils.h"
 
 bool isMixedInput(char *inputBuffer);
-char *allocateStorage(char *inputBuffer);
 
-char *parseUserInput(char *prompt, char *inputBuffer , size_t size)
+void parseUserInput(char *prompt, char *inputBuffer , size_t size)
 {
   char *p_Input = NULL;
   while(p_Input == NULL)
@@ -49,8 +48,6 @@ char *parseUserInput(char *prompt, char *inputBuffer , size_t size)
       printf("\n[INFO]: If your trying to input command type help:command to see all available commands.\n\n");
       continue;
     }
-    
-    return allocateStorage(inputBuffer);
   }
 }
 
@@ -66,11 +63,4 @@ bool isMixedInput(char *inputBuffer)
     }
   }
   return false;
-}
-
-char *allocateStorage(char *inputBuffer)
-{
-  char *convertedBuffer = malloc(strlen(inputBuffer) + 1);
-  sscanf(inputBuffer, "%s", convertedBuffer);
-  return convertedBuffer;
 }

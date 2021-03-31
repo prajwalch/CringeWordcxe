@@ -7,15 +7,13 @@
 #include "makeCringeWord.h"
 #include "parseUserInput.h"
 
-#define EXTRA_ALLOWED_BYTE 3
 #define BYTE_FOR_NEWLINE 1
 
 void displayInstructions(void);
 void presentWords(char **wordList, int totalStoredWords);
 void printCringeWord(char *cringeWord);
-char *takeUserInput(int orginalWordLength);
-void printUserGuess(char **userGuess);
-void checkForCorrectGuess(char **p_OrginalWord, char **p_UserGuess);
+void printUserGuess(char *userGuess);
+void checkForCorrectGuess(char *p_OrginalWord, char *userGuess);
 
 
 void startGame(void) {
@@ -105,24 +103,19 @@ void presentWords(char **wordList, int totalStoredWords)
     makeCringeWord(cringeWord, p_OrginalWord, sizeof(cringeWord));
     printCringeWord(cringeWord);
     
-    char *p_UserGuess = takeUserInput(strlen(p_OrginalWord));
+    char userGuess[strlen(p_OrginalWord) + BYTE_FOR_NEWLINE];
+    parseUserInput(NULL, userGuess, sizeof(userGuess));
     
-    if(strcmp(p_UserGuess, "quit") == 0)
+    if(strcmp(userGuess, "quit") == 0)
     {
       printf("\n[cw]: Resetting all game data...\n");
-      free(p_UserGuess);
-      p_UserGuess = NULL;
       printf("[cw]: Resetting done...\n");
       printf("[cw]: Quitting game...\n\n");
       break;
     }
     
-    printUserGuess(&p_UserGuess);
-    checkForCorrectGuess(&p_OrginalWord, &p_UserGuess);
-    
-    
-    free(p_UserGuess);
-    p_UserGuess = NULL;
+    printUserGuess(userGuess);
+    checkForCorrectGuess(p_OrginalWord, userGuess);
     
     currentIndex++;
   }
@@ -133,29 +126,21 @@ void printCringeWord(char *cringeWord)
   printf("\nWhat is the correct form of '%s'?\n", cringeWord);
 }
 
-char *takeUserInput(int orginalWordLength)
+void printUserGuess(char *userGuess)
 {
-  int allowedWordLength = orginalWordLength + EXTRA_ALLOWED_BYTE;
-    
-  char userInputBuffer[allowedWordLength + BYTE_FOR_NEWLINE];
-  return parseUserInput(NULL, userInputBuffer, sizeof(userInputBuffer));
+  printf("\nYour corrected word is %s\n", userGuess);
 }
 
-void printUserGuess(char **userGuess)
+void checkForCorrectGuess(char *p_OrginalWord, char *userGuess)
 {
-  printf("\nYour corrected word is %s\n", *userGuess);
-}
-
-void checkForCorrectGuess(char **p_OrginalWord, char **p_UserGuess)
-{
-  if(strcmp(*p_OrginalWord, *p_UserGuess) == 0) 
+  if(strcmp(p_OrginalWord, userGuess) == 0) 
   {
     printf("Nice! you corrected the word \n");
   }
   else 
   {
     printf("Oops you loose\n");
-    printf("Answer is %s\n", *p_OrginalWord);
+    printf("Answer is %s\n", p_OrginalWord);
     printf("Ok lets play again\n");
   }
 }
