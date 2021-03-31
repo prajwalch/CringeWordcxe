@@ -100,8 +100,10 @@ void presentWords(char **wordList, int totalStoredWords)
   while(currentIndex != totalStoredWords) 
   {
     const *p_OrginalWord = wordList[currentIndex];
-    char *p_CringeWord = makeCringeWord(p_OrginalWord);
-    printCringeWord(p_CringeWord);
+    
+    char cringeWord[strlen(p_OrginalWord) + 1];
+    makeCringeWord(cringeWord, p_OrginalWord, sizeof(cringeWord));
+    printCringeWord(cringeWord);
     
     char *p_UserGuess = takeUserInput(strlen(p_OrginalWord));
     

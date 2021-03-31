@@ -1,12 +1,10 @@
-#include <string.h>
-#include "storeWordForShuffle.h"
+#include <string.
 #include "shuffleLetters.h"
 
-char *makeCringeWord(char *orginalWord)
+void makeCringeWord(char *cwBuffer, char *orginalWord, size_t buffer_size)
 {
-  int lengthOfWord = strlen(orginalWord);
+  strncpy(cwBuffer, orginalWord, buffer_size);
+  printf("test %s\n", cwBuffer);
   
-  char *p_WordToShuffle = storeWordForShuffle(orginalWord, lengthOfWord);
-  shuffleLetters(p_WordToShuffle, lengthOfWord);
- return p_WordToShuffle;
+  shuffleLetters(cwBuffer, strlen(cwBuffer));
 }

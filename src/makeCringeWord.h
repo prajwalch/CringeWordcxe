@@ -1,3 +1,3 @@
 #pragma once
 
-char *makeCringeWord(char *orginalWord);
+void makeCringeWord(char *cwBuffer, char *orginalWord, size_t buffer_size);
