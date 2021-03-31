@@ -108,9 +108,7 @@ void presentWords(char **wordList, int totalStoredWords)
     
     if(strcmp(userGuess, "quit") == 0)
     {
-      printf("\n[cw]: Resetting all game data...\n");
-      printf("[cw]: Resetting done...\n");
-      printf("[cw]: Quitting game...\n\n");
+      printf("Exiting game...\n");
       break;
     }
     
