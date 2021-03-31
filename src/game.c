@@ -97,7 +97,7 @@ void presentWords(char **wordList, int totalStoredWords)
   int currentIndex = 0;
   while(currentIndex != totalStoredWords) 
   {
-    const *p_OrginalWord = wordList[currentIndex];
+    const char *p_OrginalWord = wordList[currentIndex];
     
     char cringeWord[strlen(p_OrginalWord) + 1];
     makeCringeWord(cringeWord, p_OrginalWord, sizeof(cringeWord));
