@@ -11,8 +11,8 @@
 
 void displayInstructions(void);
 void presentWords(char **wordList, int totalStoredWords);
-void printCringeWord(char *cringeWord);
-void printUserGuess(char *userGuess);
+void printCringeWord(const char *cringeWord);
+void printUserGuess(const char *userGuess);
 void checkForCorrectGuess(char *p_OrginalWord, char *userGuess);
 
 
@@ -121,12 +121,12 @@ void presentWords(char **wordList, int totalStoredWords)
   }
 }
 
-void printCringeWord(char *cringeWord)
+void printCringeWord(const char *cringeWord)
 {
   printf("\nWhat is the correct form of '%s'?\n", cringeWord);
 }
 
-void printUserGuess(char *userGuess)
+void printUserGuess(const char *userGuess)
 {
   printf("\nYour corrected word is %s\n", userGuess);
 }
