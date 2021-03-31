@@ -89,7 +89,7 @@ bool isBufferOverflow(char *inputBuffer)
   return false;
 }
 
-void flushInputBuffer() 
+void flushInputBuffer(void) 
 {
   int ch = 0;
   while(((ch = getchar()) != '\n') && (ch != EOF));
