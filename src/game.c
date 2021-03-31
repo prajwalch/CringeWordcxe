@@ -7,7 +7,7 @@
 #include "makeCringeWord.h"
 #include "parseUserInput.h"
 
-#define BYTE_FOR_NEWLINE 1
+#define BYTE_FOR_NULL 1
 
 void displayInstructions(void);
 void presentWords(char **wordList, int totalStoredWords);
@@ -98,12 +98,13 @@ void presentWords(char **wordList, int totalStoredWords)
   while(currentIndex != totalStoredWords) 
   {
     const char *p_OrginalWord = wordList[currentIndex];
+    int wordLengthWNull = strlen(p_OrginalWord) + BYTE_FOR_NULL;
     
-    char cringeWord[strlen(p_OrginalWord) + 1];
+    char cringeWord[wordLengthWNull];
     makeCringeWord(cringeWord, p_OrginalWord, sizeof(cringeWord));
     printCringeWord(cringeWord);
     
-    char userGuess[strlen(p_OrginalWord) + BYTE_FOR_NEWLINE];
+    char userGuess[wordLengthWNull];
     parseUserInput(NULL, userGuess, sizeof(userGuess));
     
     if(strcmp(userGuess, "quit") == 0)
