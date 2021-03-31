@@ -5,8 +5,10 @@
 #include "cxe_logger.h"
 #include "cxe_readLineUtils.h"
 
-long parseInputAsInt(char *input);
+#define FAKE_BYTE 1
+#define BYTE_OF_NEWLINE 1
 
+long parseInputAsInt(char *input);
 
 long readLine(char *prompt, char *inputBuffer , size_t size) 
 {
@@ -18,7 +20,7 @@ long readLine(char *prompt, char *inputBuffer , size_t size)
     displayPrompt(prompt);
     
     // take input
-    p_Input = fgets(inputBuffer, size + 1, stdin);
+    p_Input = fgets(inputBuffer, size + FAKE_BYTE, stdin);
     // check for null
     if(isNullInput(&p_Input)) 
     {
@@ -31,7 +33,7 @@ long readLine(char *prompt, char *inputBuffer , size_t size)
     {
       flushInputBuffer();
       setInputToNull(&p_Input);
-      printf("Its not allowed to enter more then %i input\n", (strlen(inputBuffer) - 1));
+      printf("Its not allowed to enter more then %i input\n", (strlen(inputBuffer) - BYTE_OF_NEWLINE));
       continue;
     }
     
@@ -83,7 +85,7 @@ bool isNullInput(char **p_Input)
 
 bool isBufferOverflow(char *inputBuffer) 
 {
-  if(inputBuffer[strlen(inputBuffer) - 1] != '\n')
+  if(inputBuffer[strlen(inputBuffer) - BYTE_OF_NEWLINE] != '\n')
     return true;
 
   return false;
@@ -107,7 +109,7 @@ long parseInputAsInt(char *input)
     
   if(input == p_End) 
   {
-    input[strlen(input) - 1] = '\0';
+    input[strlen(input) - BYTE_OF_NEWLINE] = '\0';
     printf("Error converting inputBuffer\n");
   }
   return convertedBuffer;
