@@ -15,7 +15,7 @@ void parseUserInput(char *prompt, char *inputBuffer , size_t size)
   {
     displayPrompt(prompt);
     
-    p_Input = fgets(inputBuffer, size + 1, stdin);
+    p_Input = fgets(inputBuffer, size + FAKE_BYTE, stdin);
     
     if(isNullInput(&p_Input)) 
     {
@@ -23,8 +23,9 @@ void parseUserInput(char *prompt, char *inputBuffer , size_t size)
       continue;
     }
     
+    int bufferLastIndex = strlen(inputBuffer) - BYTE_OF_NEWLINE;
     int allowedWordLength = size - 1;
-    if(isBufferOverflow(inputBuffer))
+    if(isBufferOverflow(inputBuffer, bufferLastIndex))
     {
       flushInputBuffer();
       setInputToNull(&p_Input);
@@ -39,7 +40,7 @@ void parseUserInput(char *prompt, char *inputBuffer , size_t size)
       continue;
     }
     
-    inputBuffer[strlen(inputBuffer) - 1] = '\0';
+    inputBuffer[bufferLastIndex] = '\0';
     
     if(isMixedInput(inputBuffer))
     {
