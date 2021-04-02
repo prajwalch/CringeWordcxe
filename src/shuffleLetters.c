@@ -1,16 +1,20 @@
+#include <stdlib.h>
 #include "generateRandomIndex.h"
 
 // one extra byte inorder to count from 0
-#define NULLBYTE_AND_EXTRABYTE 2
+#define NEWLINE_BYTE 1
+#define EXTRA_BYTE 1
 
-void shuffleLetters(char *word, int lengthOfWord)
+void shuffleLetters(char *word, size_t buff_size)
 {
-  int index = 0;
-  for(index = lengthOfWord - NULLBYTE_AND_EXTRABYTE; index > 0; index--) {
-    int randomIndex = generateRandomIndex(index + 1);
+  int wordLength = buff_size - NEWLINE_BYTE;
+  int index = wordLength - EXTRA_BYTE;
+
+  for(; index > 0; index--) {
+    int randomIndex = generateRandomIndex(index + EXTRA_BYTE);
     if (randomIndex == index)
     {
-      randomIndex = (randomIndex + 1) % lengthOfWord;
+      randomIndex = (randomIndex + EXTRA_BYTE) % wordLength;
     }
     
     char tempOfLast = word[index];
