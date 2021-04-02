@@ -104,7 +104,7 @@ void setInputToNull(char **p_Input)
 long parseInputAsInt(char *inputBuffer, int lastIndex) 
 {
   char *p_End = NULL;
-  long convertedBuffer = strtol(input, &p_End, 0);
+  long convertedBuffer = strtol(inputBuffer, &p_End, 0);
     
   if(input == p_End) 
   {
