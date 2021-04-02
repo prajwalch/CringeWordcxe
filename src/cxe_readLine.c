@@ -106,7 +106,7 @@ long parseInputAsInt(char *inputBuffer, int lastIndex)
   char *p_End = NULL;
   long convertedBuffer = strtol(inputBuffer, &p_End, 0);
     
-  if(input == p_End) 
+  if(inputBuffer == p_End) 
   {
     inputBuffer[lastIndex] = '\0';
     printf("Error converting inputBuffer\n");
