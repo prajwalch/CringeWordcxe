@@ -25,7 +25,8 @@
 ## v0.1.2
 ### Changes
 ---
-- Add game point
+- Added game point
+- Added skip command to skip the current word
 
 ### Game Point
 ---
