@@ -3,6 +3,6 @@
 
 int currentGPoint(void);
 void displayGPoint(void);
-void updateGPoint(char flag);
+void updateGPoint(char flag, int pointValue);
 
 #endif

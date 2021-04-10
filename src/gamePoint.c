@@ -18,15 +18,15 @@ void displayGPoint(void)
   printf("\nGame Point: %i\n", gamePoint);
 }
 
-void updateGPoint(char flag)
+void updateGPoint(char flag, int pointValue)
 {
   if(flag == ADDPOINT_FLAG) {
-    gamePoint += POINT_TO_ADD;
+    gamePoint += pointValue;
     return;
   }
   
   if(flag == REMOVEPOINT_FLAG) {
-    gamePoint -= POINT_TO_REMOVE;
+    gamePoint -= pointValue;
     return;
   }
 }

@@ -91,10 +91,14 @@ void startGame(void) {
 
 void displayInstructions(void)
 {
-  printf("\t\tHOW TO PLAY:\n");
-  printf("A random word will be given to you with shuffled letters and you have to correct the word by guessing.\n");
-  printf ("\n[NOTE]: You can quit game anytime by typing 'quit'\n");
-  printf("\n\t\tBEST OF LUCK\n");
+  printf("\nHow to play?\n");
+  printf("--------------------\n");
+  printf("\nA random word will be given to you with shuffled letters and you have to correct the word by guessing.\n");
+  
+  printf("\nCommands and usage\n");
+  printf("--------------------\n");
+  printf("quit: Exit the game and return to menu\n");
+  printf("next: Skip the current word and give the new one (8 GPoint will be reduced)\n");
 }
 
 void startGameLoop(char **wordList, int totalStoredWords) 
@@ -105,7 +109,7 @@ void startGameLoop(char **wordList, int totalStoredWords)
     if((currentGPoint()) <= 0)
     {
       printf("\nOops!! no more game point that means game over\n");
-      break;
+      return;
     }
     
     displayGPoint();
@@ -126,7 +130,14 @@ void startGameLoop(char **wordList, int totalStoredWords)
     if(strcmp(userGuess, "quit") == 0)
     {
       printf("Exiting game...\n");
-      break;
+      return;
+    }
+    
+    if(strcmp(userGuess, "next") == 0)
+    {
+      updateGPoint('r', 8);
+      currentIndex++;
+      continue;
     }
     
     printUserGuess(userGuess);
@@ -159,7 +170,7 @@ void checkUserStatus(char *p_OrginalWord, char *userGuess)
   if(!userHasWon)
   {
     // flag r is remove point
-    updateGPoint('r');
+    updateGPoint('r', 5);
     printf("Oops!! you loose\n");
     printf("Correct answer is '%s'\n", p_OrginalWord);
     printf("Let's try to play again\n");
@@ -167,7 +178,7 @@ void checkUserStatus(char *p_OrginalWord, char *userGuess)
   }
   
   // flag a is add point
-  updateGPoint('a');
+  updateGPoint('a', 3);
   printf("Great, you found the correct word\n");
   printf("Let's try to find another word\n");
   return;
